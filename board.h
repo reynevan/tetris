@@ -10,7 +10,8 @@ class Board
 public:
     Board();
     void render();
-    Block& at(int, int);
+    bool isBlockAt(const int x, const int y) const;
+    void pushBlock(Block block);
 
 private:
     std::vector<Block>_board;

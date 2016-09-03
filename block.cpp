@@ -9,16 +9,16 @@ Block::Block()
     _active = false;
 }
 
-Block::Block(int x, int y, bool active) : _x(x), _y(y), _active(active)
+Block::Block(int x, int y, const Color color, bool active) : _x(x), _y(y), _color(color), _active(active)
 {
 }
 
-int Block::getX()
+int Block::getX() const
 {
     return _x;
 }
 
-int Block::getY()
+int Block::getY() const
 {
     return _y;
 }
@@ -34,7 +34,8 @@ void Block::setY(int y)
 }
 
 void Block::render()
-{
+{    
+    glColor3f(_color.red, _color.green, _color.blue);
     rect(_x*Block::size + 1, _y*Block::size + 1, Block::size - 2, Block::size - 2);
 }
 

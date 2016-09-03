@@ -8,7 +8,8 @@ SOURCES += main.cpp \
     app.cpp \
     tetrimino.cpp \
     block.cpp \
-    board.cpp
+    board.cpp \
+    shape.cpp
 
 HEADERS += \
     lutil.h \
@@ -16,7 +17,9 @@ HEADERS += \
     tetrimino.h \
     block.h \
     board.h \
-    consts.h
+    consts.h \
+    color.h \
+    shape.h
 
 LIBS += -lglut
 LIBS += -lGL

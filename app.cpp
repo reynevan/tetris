@@ -6,6 +6,7 @@ App::App()
 {    
     _appInstance = this;
     _tetrimino = new Tetrimino();
+
     glutKeyboardFunc(App::_handleKeysCallback);
     glutSpecialFunc(App::_handleSpecialCallback);
     glutDisplayFunc(App::_renderCallback);
@@ -44,7 +45,12 @@ void App::_handleSpecialCallback(int key, int x, int y)
 void App::_update(int val)
 {
     //std::cout <<"update"<<std::endl;
-    _tetrimino->move(&_board);
+    bool moved = _tetrimino->moveDown(&_board);
+    if (!moved){
+        _tetrimino->moveToBoard(&_board);
+        delete _tetrimino;
+        _tetrimino = new Tetrimino();
+    }
     glutTimerFunc(INTERVAL, App::_updateCallback, val);
 }
 
@@ -54,10 +60,13 @@ void App::_render(int val)
     glClear( GL_COLOR_BUFFER_BIT );
 
     glLoadIdentity();
+
     glColor3f( 1.f, color, 0.f );
     _board.render();
+    _tetrimino->render();
 
     glutSwapBuffers();
+
     glutTimerFunc( 1000 / FPS, App::_renderCallback, val);
 }
 
