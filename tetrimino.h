@@ -18,8 +18,13 @@ public:
     void horizontalMove(int key, Board* board);
     void render();
     void moveToBoard(Board *board);
+    void rotate();
 
 private:
+    int _x;
+    int _y;
+    int _rotation;
+    int _shape;
     std::vector<Block> _blocks;
     bool _checkMoveDown(Board*);
     bool _checkHorizontalMove(int direction, Board* board);

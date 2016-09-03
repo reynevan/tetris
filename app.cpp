@@ -50,6 +50,7 @@ void App::_update(int val)
         _tetrimino->moveToBoard(&_board);
         delete _tetrimino;
         _tetrimino = new Tetrimino();
+        _board.removeFullRows();
     }
     glutTimerFunc(INTERVAL, App::_updateCallback, val);
 }
@@ -73,16 +74,14 @@ void App::_render(int val)
 
 void App::_handleKeys(unsigned char key, int x, int y)
 {
-    std::cout << key << " x:"<<x<<" y:"<<y<<std::endl;
-    if (key == 'a'){
-        color = 1.0f;
-    } else if (key == 's'){
-        color = 0.f;
+    if (key == KEY_ROTATE){
+        _tetrimino->rotate();
     }
 }
 
 void App::_handleSpecial(int key, int x, int y)
 {
-    std::cout << key << " x:"<<x<<" y:"<<y<<std::endl;
-    _tetrimino->horizontalMove(key, &_board);
+    if (key == GLUT_KEY_LEFT || key == GLUT_KEY_RIGHT){
+        _tetrimino->horizontalMove(key, &_board);
+    }
 }

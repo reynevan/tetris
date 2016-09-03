@@ -13,6 +13,7 @@ public:
     int getY() const;
     void setX(int);
     void setY(int);
+    void incY();
     void render();
     bool isActive();
     void setActive(bool);

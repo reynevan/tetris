@@ -9,7 +9,7 @@ class Shape
 {
 public:
     Shape();
-    Shape(char type);
+    Shape(char type, char rotation = 0);
     const static char SHAPE_I = 1;
     const static char SHAPE_T = 2;
     const static char SHAPE_O = 3;

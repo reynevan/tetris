@@ -33,6 +33,11 @@ void Block::setY(int y)
     _y = y;
 }
 
+void Block::incY()
+{
+    _y++;
+}
+
 void Block::render()
 {    
     glColor3f(_color.red, _color.green, _color.blue);

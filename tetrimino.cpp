@@ -1,13 +1,18 @@
 #include "tetrimino.h"
-
+#include <iostream>
 
 Tetrimino::Tetrimino()
 {
+    _x = BOARD_X / 2;
+    _y = 0;
+    _rotation = 0;
+    _shape = rand() % Shape::SHAPES_COUNT + 1;
     srand(time(NULL));
-    Shape shape = Shape(rand() % Shape::SHAPES_COUNT + 1);
+    Shape shape = Shape(_shape);
     std::vector<Block> blocks = shape.getBlocks();
+
     for (auto block = blocks.begin(); block != blocks.end(); ++block){
-        block->setX(block->getX() + BOARD_X / 2);
+        block->setX(block->getX() + _x);
         _blocks.push_back(*block);
     }
 }
@@ -33,9 +38,24 @@ bool Tetrimino::moveDown(Board* board)
         return false;
     }
     for (auto block = _blocks.begin(); block != _blocks.end(); ++block){
-        block->setY(block->getY() + 1);
+        block->incY();
     }
+    _y++;
     return true;
+}
+
+void Tetrimino::rotate()
+{
+    _rotation++;
+    _rotation %= 4;
+    Shape shape = Shape(_shape, _rotation);
+    std::vector<Block> blocks = shape.getBlocks();
+    _blocks.clear();
+    for (auto block = blocks.begin(); block != blocks.end(); ++block){
+        block->setX(block->getX() + _x);
+        block->setY(block->getY() + _y);
+        _blocks.push_back(*block);
+    }
 }
 
 bool Tetrimino::_checkMoveDown(Board* board)
@@ -66,6 +86,7 @@ void Tetrimino::horizontalMove(int key, Board *board)
     for (auto block = _blocks.begin(); block != _blocks.end(); ++block){
         block->setX(block->getX() + direction);
     }
+    _x += direction;
 }
 
 bool Tetrimino::_checkHorizontalMove(int direction, Board *board)
